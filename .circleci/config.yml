@@ -4,6 +4,9 @@ jobs:
   test-and-lint:
     docker:
       - image: cimg/python:3.10.1
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_USER: postgres
     steps:
       - checkout
       - run:
