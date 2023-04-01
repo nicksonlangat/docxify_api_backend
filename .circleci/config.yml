@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   test-and-lint:
+  description: "Setup Django application, lint it and run tests"
     docker:
       - image: cimg/python:3.10.1
       - image: cimg/postgres:14.1
@@ -18,10 +19,6 @@ jobs:
       - run:
           name: run tests
           command: python manage.py test
-  deploy-to-prod:
-  machine:
-      enabled: true
-  steps:
       - run:
           name: Deploy Over SSH to Prod
           command: |
