@@ -29,7 +29,11 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
-      - test-and-lint
+      - test-and-lint:
+          filters:
+            branches:
+              only:
+                - staging
       - pull-and-build:
           filters:
             branches:
