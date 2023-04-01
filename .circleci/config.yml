@@ -1,13 +1,6 @@
 version: 2.1
 
 jobs:
-  pull-and-build:
-    docker:
-      - image: arvindr226/alpine-ssh
-    steps:
-      - checkout
-      - run: ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST "cd docxify_api && sudo ./deploy.sh"
-
   test-and-lint:
     docker:
       - image: cimg/python:3.10.1
@@ -25,9 +18,16 @@ jobs:
       - run:
           name: run tests
           command: python manage.py test
+          
+  pull-and-build:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - checkout
+      - run: ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST "cd docxify_api && sudo ./deploy.sh"
      
 workflows:
-  build-and-test-workflow:
+  deploy-to-prod-workflow:
     jobs:
       - test-and-lint:
           filters:
