@@ -27,4 +27,3 @@ workflows:
   build-and-test-workflow:
     jobs:
       - test-and-lint
-      - deploy-to-prod
