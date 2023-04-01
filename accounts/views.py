@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework import exceptions
 from accounts.utils import get_tokens_for_user
@@ -28,21 +28,19 @@ class RegisterUserView(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 },
                 status=status.HTTP_201_CREATED,
             )
-        else:
-            return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        User = get_user_model()
+        user = get_user_model()
         email = request.data.get("email")
         password = request.data.get("password")
         response = Response()
         if (email is None) or (password is None):
             raise exceptions.AuthenticationFailed("email and password required")
-        user = User.objects.filter(email=email).first()
+        user = user.objects.filter(email=email).first()
         if user is None:
             raise exceptions.AuthenticationFailed("user not found")
         if not user.check_password(password):

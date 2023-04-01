@@ -12,8 +12,6 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100)
     email = models.EmailField(_('email address'), unique=True)
-   
-    
+
     def __str__(self):
         return self.email
-
