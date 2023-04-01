@@ -15,6 +15,7 @@ class Document(models.Model):
     file = models.FileField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    document_guid = models.CharField(max_length=250, blank=True, null=True)
 
     def __str__(self) -> str:
         return str(self.title)
