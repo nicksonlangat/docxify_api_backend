@@ -1,6 +1,13 @@
 version: 2.1
 
 jobs:
+  pull-and-build:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - checkout
+      - run: ssh -oStrictHostKeyChecking=no -v $SSH_USER@$SSH_HOST "sudo ./deploy.sh"
+
   test-and-lint:
     docker:
       - image: cimg/python:3.10.1
@@ -18,12 +25,13 @@ jobs:
       - run:
           name: run tests
           command: python manage.py test
-      - run:
-          name: deploy to prod
-          command: >
-           - ssh SSH_USER@SSH_HOST "sudo ./deploy.sh"
      
 workflows:
   build-and-test-workflow:
     jobs:
       - test-and-lint
+      - pull-and-build:
+          filters:
+            branches:
+              only:
+                - main
