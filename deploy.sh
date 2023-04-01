@@ -1,7 +1,5 @@
 #!/bin/bash
-
-#enter the right dir
-cd docxify_api
+echo "Starting the deployment process"
 
 #pull from the branch
 git pull origin main
@@ -26,3 +24,5 @@ sudo systemctl restart doc
 
 #restart nginx
 sudo systemctl restart nginx
+
+echo "That looks good, code deployed with success :)"
