@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #enter the right dir
-cd ~/docxify_api
+cd docxify_api
 
 #pull from the branch
 git pull origin main
