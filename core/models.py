@@ -8,8 +8,14 @@ class Document(models.Model):
         ("Task", "Task"),
         ("Document", "Document")
     )
+    STATUS_CHOICES = (
+        ("Pending", "Pending"),
+        ("Ongoing", "Ongoing"),
+        ("Done", "Done")
+    )
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     type = models.CharField(max_length=250, choices=TYPE_CHOICES, default="Note")
+    status = models.CharField(max_length=250, choices=STATUS_CHOICES, default="Pending", null=True, blank=True)
     title = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
