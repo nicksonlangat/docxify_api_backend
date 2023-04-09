@@ -4,6 +4,7 @@ from .serializers import DocumentSerializer
 
 # Create your views here.
 class DocumentViewset(viewsets.ModelViewSet):
+    queryset = Document.objects.all()
     serializer_class = DocumentSerializer
 
     def get_queryset(self):

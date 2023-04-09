@@ -25,3 +25,6 @@ class Document(models.Model):
 
     def __str__(self) -> str:
         return str(self.title)
+    
+    class Meta:
+        ordering = ('-modified_at',)
